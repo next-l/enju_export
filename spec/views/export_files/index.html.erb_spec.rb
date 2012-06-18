@@ -15,7 +15,7 @@ describe "export_files/index" do
         :export_file_size => "Export File Size",
         :state => "State"
       )
-    ])
+    ].paginate(:page => 1))
   end
 
   it "renders a list of export_files" do

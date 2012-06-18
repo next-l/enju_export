@@ -1,3 +1,9 @@
+ja:
+  activerecord:
+    models:
+      export_file: Export file
+
 en:
-  page:
+  export_file:
     download: Download
+    preparing_download: Preparing download...

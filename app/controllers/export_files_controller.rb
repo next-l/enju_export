@@ -1,13 +1,12 @@
-
 class ExportFilesController < ApplicationController
   # GET /export_files
   # GET /export_files.json
   def index
-    @export_files = ExportFile.all
+    @export_files = ExportFile.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @export_files }
+      format.json { render :json => @export_files }
     end
   end
 
@@ -23,11 +22,11 @@ class ExportFilesController < ApplicationController
             redirect_to export_file_path(@export_file, :format => :csv)
             #render 'download'
           else
-            redirect_to(@export_file, notice: 'in process')
+            redirect_to(@export_file, :notice => 'in process')
           end
         end
       }
-      format.json { render json: @export_file }
+      format.json { render :json => @export_file }
       format.js
       format.csv {
         if @export_file.state == 'completed'
@@ -50,7 +49,7 @@ class ExportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @export_file }
+      format.json { render :json => @export_file }
     end
   end
 
@@ -66,11 +65,11 @@ class ExportFilesController < ApplicationController
 
     respond_to do |format|
       if @export_file.save
-        format.html { redirect_to @export_file, notice: ' export file was successfully created.' }
-        format.json { render json: @export_file, status: :created, location: @export_file }
+        format.html { redirect_to @export_file, :notice => ' export file was successfully created.' }
+        format.json { render :json => @export_file, :status => :created, location: @export_file }
       else
-        format.html { render action: "new" }
-        format.json { render json: @export_file.errors, status: :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.json { render :json => @export_file.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -82,11 +81,11 @@ class ExportFilesController < ApplicationController
 
     respond_to do |format|
       if @export_file.update_attributes(params[:export_file])
-        format.html { redirect_to @export_file, notice: ' export file was successfully updated.' }
+        format.html { redirect_to @export_file, :notice => ' export file was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @export_file.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @export_file.errors, :status => :unprocessable_entity }
       end
     end
   end

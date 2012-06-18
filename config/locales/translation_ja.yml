@@ -1,3 +1,8 @@
 ja:
-  page:
+  activerecord:
+    models:
+      export_file: エクスポートファイル
+
+  export_file:
     download: ダウンロード
+    preparing_download: ダウンロード準備中…

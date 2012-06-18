@@ -1,5 +1,8 @@
 require 'state_machine'
 require 'paperclip'
+require 'simple_form'
+require 'will_paginate'
+require 'will_paginate/array'
 
 module EnjuExport
   class Engine < ::Rails::Engine

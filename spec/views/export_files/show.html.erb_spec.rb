@@ -13,9 +13,6 @@ describe "export_files/show" do
   it "renders attributes in <p>" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Export File Name/)
-    rendered.should match(/Export Content Type/)
-    rendered.should match(/Export File Size/)
-    rendered.should match(/State/)
+    rendered.should match(/Preparing/)
   end
 end

@@ -9,7 +9,6 @@
     setTimeout(function(){
       $.ajax({ url: "<%= export_file_path(@export_file, :format => :json) %>", success: function(data){
         if(data.state == 'completed'){
-          //$(location).attr('href', "<%= export_file_url(@export_file, :mode => 'download') %>");
           $.get("<%= export_file_url(@export_file, :format => :js) %>");
         }
         poll();
@@ -17,7 +16,7 @@
     }, 5000);
   })();
 </script>
-generating CSV file... <%= image_tag 'spinner.gif' %>
+<%= t('export_file.preparing_download') %> <%= image_tag 'spinner.gif' %>
 </div>
 </div>
 </div>
