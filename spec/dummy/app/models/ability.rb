@@ -4,19 +4,11 @@ class Ability
   def initialize(user)
     case user.try(:role).try(:name)
     when 'Administrator'
-      can :manage, [
-        PatronMerge,
-        PatronMergeList,
-        SeriesStatementMerge,
-        SeriesStatementMergeList
-      ]
+      can [:read, :destroy], ExportFile
     when 'Librarian'
-      can :manage, [
-        PatronMerge,
-        PatronMergeList,
-        SeriesStatementMerge,
-        SeriesStatementMergeList
-      ]
+      can [:read, :destroy], ExportFile
+    when 'User'
+      can :read, ExportFile
     end
   end
 end

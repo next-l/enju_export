@@ -19,6 +19,7 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe ExportFilesController do
+  fixtures :all
 
   # This should return the minimal set of attributes required to create a valid
   # ExportFile. As you add validations to ExportFile, be sure to
@@ -35,32 +36,38 @@ describe ExportFilesController do
   end
 
   describe "GET index" do
+    login_fixture_admin
+
     it "assigns all export_files as @export_files" do
       export_file = ExportFile.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {} #, valid_session
       assigns(:export_files).should eq([export_file])
     end
   end
 
   describe "GET show" do
+    login_fixture_admin
+
     it "assigns the requested export_file as @export_file" do
       export_file = ExportFile.create! valid_attributes
-      get :show, {:id => export_file.to_param}, valid_session
+      get :show, {:id => export_file.to_param} #, valid_session
       assigns(:export_file).should eq(export_file)
     end
   end
 
   describe "DELETE destroy" do
+    login_fixture_admin
+
     it "destroys the requested export_file" do
       export_file = ExportFile.create! valid_attributes
       expect {
-        delete :destroy, {:id => export_file.to_param}, valid_session
+        delete :destroy, {:id => export_file.to_param} #, valid_session
       }.to change(ExportFile, :count).by(-1)
     end
 
     it "redirects to the export_files list" do
       export_file = ExportFile.create! valid_attributes
-      delete :destroy, {:id => export_file.to_param}, valid_session
+      delete :destroy, {:id => export_file.to_param} #, valid_session
       response.should redirect_to(export_files_url)
     end
   end
