@@ -1,0 +1,29 @@
+<h1>Listing export_files</h1>
+
+<table>
+  <tr>
+    <th>Export file name</th>
+    <th>Export content type</th>
+    <th>Export file size</th>
+    <th>State</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @export_files.each do |export_file| %>
+  <tr>
+    <td><%= export_file.export_file_name %></td>
+    <td><%= export_file.export_content_type %></td>
+    <td><%= export_file.export_file_size %></td>
+    <td><%= export_file.state %></td>
+    <td><%= link_to 'Show', export_file %></td>
+    <td><%= link_to 'Edit', edit_export_file_path(export_file) %></td>
+    <td><%= link_to 'Destroy', export_file, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Export file', new_export_file_path %>

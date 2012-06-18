@@ -1,0 +1,26 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.export_file')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<div id="download">
+<script>
+  (function poll(){
+    setTimeout(function(){
+      $.ajax({ url: "<%= export_file_path(@export_file, :format => :json) %>", success: function(data){
+        if(data.state == 'completed'){
+          //$(location).attr('href', "<%= export_file_url(@export_file, :mode => 'download') %>");
+          $.get("<%= export_file_url(@export_file, :format => :js) %>");
+        }
+        poll();
+      }, dataType: "json"});
+    }, 5000);
+  })();
+</script>
+generating CSV file... <%= image_tag 'spinner.gif' %>
+</div>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+</div>
