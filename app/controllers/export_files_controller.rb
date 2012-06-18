@@ -1,4 +1,6 @@
 class ExportFilesController < ApplicationController
+  load_and_authorize_resource
+
   # GET /export_files
   # GET /export_files.json
   def index

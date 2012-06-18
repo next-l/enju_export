@@ -10,7 +10,6 @@
     <th>State</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @export_files.each do |export_file| %>
@@ -20,7 +19,6 @@
     <td><%= export_file.export_file_size %></td>
     <td><%= export_file.state %></td>
     <td><%= link_to t('page.show'), export_file %></td>
-    <td><%= link_to t('page.edit'), edit_export_file_path(export_file) %></td>
     <td><%= link_to t('page.destroy'), export_file, :data => {:confirm => t('page.are_you_sure')}, :method => :delete %></td>
   </tr>
 <% end %>

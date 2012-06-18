@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency "state_machine"
   s.add_dependency "paperclip"
   s.add_dependency "simple_form"
-  s.add_dependency "will_paginate"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
