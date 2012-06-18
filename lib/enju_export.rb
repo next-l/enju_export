@@ -18,10 +18,10 @@ module EnjuExport
       end
 
       module ClassMethods
-        def generate_csv(ids, attrs, export_file)
+        def generate_csv(ids, attrs, export_file, role = nil)
           export_file.sm_start!
           file = Tempfile.new("#{self.name.downcase}_")
-          self.find_each(:conditions => {:id => ids}) do |record|
+          self.where('required_role_id >= ?', role.try(:id).to_i).find_each(:conditions => {:id => ids}) do |record|
             file.write(attrs.map{|attr| record.send(attr)}.join(',') + "\n")
           end
           file.close
