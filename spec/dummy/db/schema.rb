@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120610075759) do
+ActiveRecord::Schema.define(:version => 20120621224846) do
 
   create_table "export_files", :force => true do |t|
     t.string   "export_file_name"
@@ -20,7 +20,10 @@ ActiveRecord::Schema.define(:version => 20120610075759) do
     t.string   "state"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "user_id"
   end
+
+  add_index "export_files", ["user_id"], :name => "index_export_files_on_user_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
