@@ -64,6 +64,7 @@ class ExportFilesController < ApplicationController
   # POST /export_files.json
   def create
     @export_file = ExportFile.new(params[:export_file])
+    @export_file.user = current_user
 
     respond_to do |format|
       if @export_file.save

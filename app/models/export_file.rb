@@ -1,6 +1,8 @@
 class ExportFile < ActiveRecord::Base
   attr_accessible :export_content_type, :export_file_name, :export_file_size, :state
 
+  belongs_to :user
+
   has_attached_file :export
 
   state_machine :initial => :pending do
