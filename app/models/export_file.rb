@@ -4,7 +4,14 @@ class ExportFile < ActiveRecord::Base
   belongs_to :user
   validates_associated :user_id
 
-  has_attached_file :export
+  if configatron.uploaded_file.storage == :s3
+    has_attached_file :export, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
+      :s3_permissions => :private
+  else
+    has_attached_file :export,
+      :path => ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
+  end
+  validates_attachment_content_type :export, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
 
   state_machine :initial => :pending do
     event :sm_start do
