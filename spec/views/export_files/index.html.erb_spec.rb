@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "export_files/index" do
   before(:each) do
-    assign(:export_files, [
+    assign(:export_files, Kaminari::paginate_array([
       stub_model(ExportFile,
         :export_file_name => "Export File Name",
         :export_content_type => "Export Content Type",
@@ -15,7 +15,7 @@ describe "export_files/index" do
         :export_file_size => "Export File Size",
         :state => "State"
       )
-    ].paginate(:page => 1))
+    ]).page(1))
   end
 
   it "renders a list of export_files" do
