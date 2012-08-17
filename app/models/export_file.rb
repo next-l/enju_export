@@ -4,7 +4,7 @@ class ExportFile < ActiveRecord::Base
   belongs_to :user
   validates_associated :user_id
 
-  if configatron.uploaded_file.storage == :s3
+  if Setting.uploaded_file.storage == :s3
     has_attached_file :export, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
       :s3_permissions => :private
   else
