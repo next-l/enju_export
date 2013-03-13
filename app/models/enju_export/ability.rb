@@ -1,4 +1,4 @@
-#module EnjuExport
+module EnjuExport
   class Ability
     include CanCan::Ability
 
@@ -15,4 +15,4 @@
       end
     end
   end
-#end
+end
