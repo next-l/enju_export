@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 3.2"
   s.add_dependency "state_machine"
   s.add_dependency "simple_form"
-  s.add_dependency "enju_biblio", "~> 0.1.0.pre18"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre25"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
