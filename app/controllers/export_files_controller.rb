@@ -4,7 +4,7 @@ class ExportFilesController < ApplicationController
   # GET /export_files
   # GET /export_files.json
   def index
-    @export_files = ExportFile.page(params[:page])
+    @export_files = ExportFile.order('id DESC').page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
