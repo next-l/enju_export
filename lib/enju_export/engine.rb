@@ -1,6 +1,5 @@
 require 'state_machine'
 require 'paperclip'
-require 'simple_form'
 require 'enju_core'
 
 module EnjuExport
