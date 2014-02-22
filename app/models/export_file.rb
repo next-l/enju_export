@@ -26,6 +26,64 @@ class ExportFile < ActiveRecord::Base
       transition :started => :failed
     end
   end
+
+  def self.generate_csv(ids, attrs = [], role = nil)
+    file = Tempfile.new(["#{self.name.downcase}_", '.tsv'])
+    file.write([
+                 'item_identifier',
+                 'library',
+                 'acquired_at',
+                 'original_title',
+                 'creator',
+                 'pub_date',
+                 'publisher',
+                 'budget_type',
+                 'bookstore',
+                 'price',
+                 'note'
+               ].join("\t") + "\n")
+
+    Item.where(:id => ids).where('required_role_id >= ?', role.try(:id).to_i).find_each do |item|
+      if item.manifestation
+        file.write(
+          [
+            item.item_identifier,
+            item.shelf.library.display_name.localize,
+            item.acquired_at.try(:strftime, '%Y%m%d'),
+            item.manifestation.original_title,
+            item.manifestation.creators.select(:full_name).collect(&:full_name).join("; "),
+            item.manifestation.pub_date,
+            item.manifestation.publishers.select(:full_name).collect(&:full_name).join("; "),
+            item.budget_type.try(:name),
+            item.bookstore.try(:name),
+            item.price,
+            item.note
+          ].join("\t") + "\n"
+        )
+      else
+        file.write(
+          [
+            item.item_identifier,
+            item.shelf.library.display_name.localize,
+            item.acquired_at.try(:strftime, '%Y%m%d'),
+            "",
+            "",
+            "",
+            "",
+            item.budget_type.try(:name),
+            item.bookstore.try(:name),
+            item.price,
+            item.donation,
+            item.note
+          ].join("\t") + "\n"
+        )
+      end
+    end
+    file.close
+    file
+    #self.export = File.new(file.path)
+    #sm_complete!
+  end
 end
 
 # == Schema Information
