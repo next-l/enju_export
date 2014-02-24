@@ -1,5 +1,5 @@
 class ExportFile < ActiveRecord::Base
-  attr_accessible :export_content_type, :export_file_name, :export_file_size, :state
+  #attr_accessible :export_content_type, :export_file_name, :export_file_size, :state
 
   belongs_to :user
   validates_associated :user_id
