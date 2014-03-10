@@ -1,9 +1,11 @@
 class ExportFilesController < ApplicationController
-  load_and_authorize_resource
+  before_action :set_export_file, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /export_files
   # GET /export_files.json
   def index
+    authorize ExportFile
     @export_files = ExportFile.order('id DESC').page(params[:page])
 
     respond_to do |format|
@@ -15,8 +17,6 @@ class ExportFilesController < ApplicationController
   # GET /export_files/1
   # GET /export_files/1.json
   def show
-    @export_file = ExportFile.find(params[:id])
-
     respond_to do |format|
       format.html { # show.html.erb
         if params[:mode] == 'download'
@@ -48,6 +48,7 @@ class ExportFilesController < ApplicationController
   # GET /export_files/new.json
   def new
     @export_file = ExportFile.new
+    authorize @export_file
 
     respond_to do |format|
       format.html # new.html.erb
@@ -57,13 +58,13 @@ class ExportFilesController < ApplicationController
 
   # GET /export_files/1/edit
   def edit
-    @export_file = ExportFile.find(params[:id])
   end
 
   # POST /export_files
   # POST /export_files.json
   def create
-    @export_file = ExportFile.new(params[:export_file])
+    @export_file = ExportFile.new(export_file_params)
+    authorize @export_file
     @export_file.user = current_user
 
     respond_to do |format|
@@ -80,10 +81,8 @@ class ExportFilesController < ApplicationController
   # PUT /export_files/1
   # PUT /export_files/1.json
   def update
-    @export_file = ExportFile.find(params[:id])
-
     respond_to do |format|
-      if @export_file.update_attributes(params[:export_file])
+      if @export_file.update_attributes(export_file_params)
         format.html { redirect_to @export_file, :notice => ' export file was successfully updated.' }
         format.json { head :no_content }
       else
@@ -96,12 +95,23 @@ class ExportFilesController < ApplicationController
   # DELETE /export_files/1
   # DELETE /export_files/1.json
   def destroy
-    @export_file = ExportFile.find(params[:id])
     @export_file.destroy
 
     respond_to do |format|
       format.html { redirect_to export_files_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def set_export_file
+    @export_file = ExportFile.find(params[:id])
+    authorize @export_file
+  end
+
+  def export_file_params
+    params.require(:export_file).permit(
+      :export_content_type, :export_file_name, :export_file_size, :state
+    )
   end
 end
