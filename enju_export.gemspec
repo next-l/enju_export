@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "enju_export"
   s.version     = EnjuExport::VERSION
   s.authors     = ["Kosuke Tanabe"]
-  s.email       = ["kosuke@e23.jp"]
+  s.email       = ["nabeta@fastmail.fm"]
   s.homepage    = "https://github.com/next-l/enju_export"
   s.summary     = "enju_export plugin"
   s.description = "Exporting records of Next-L Enju"
