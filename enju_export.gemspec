@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   #s.add_dependency "enju_biblio", "~> 0.2.0.pre1"
-  s.add_dependency "state_machine"
+  s.add_dependency "statesman"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"

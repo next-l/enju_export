@@ -11,19 +11,14 @@ class ExportFile < ActiveRecord::Base
   end
   validates_attachment_content_type :export, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
 
-  state_machine :initial => :pending do
-    event :sm_start do
-      transition [:pending, :started] => :started
-    end
+  has_many :export_file_transitions
 
-    event :sm_complete do
-      transition :started => :completed
-    end
-
-    event :sm_fail do
-      transition :started => :failed
-    end
+  def state_machine
+    @state_machine ||= ExportFileStateMachine.new(self, transition_class: ExportFileTransition)
   end
+
+  delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
+    to: :state_machine
 
   def self.generate_csv(ids, attrs = [], role = nil)
     file = Tempfile.new(["#{self.name.downcase}_", '.tsv'])
@@ -80,7 +75,12 @@ class ExportFile < ActiveRecord::Base
     file.close
     file
     #self.export = File.new(file.path)
-    #sm_complete!
+    transition_to!(:completed)
+  end
+
+  private
+  def self.transition_class
+    ExportFileTransition
   end
 end
 

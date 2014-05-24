@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20120621224846) do
+ActiveRecord::Schema.define(version: 20140524014928) do
+
+  create_table "export_file_transitions", force: true do |t|
+    t.string   "to_state"
+    t.text     "metadata",       default: "{}"
+    t.integer  "sort_key"
+    t.integer  "export_file_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "export_file_transitions", ["export_file_id"], name: "index_export_file_transitions_on_export_file_id"
+  add_index "export_file_transitions", ["sort_key", "export_file_id"], name: "index_export_file_transitions_on_sort_key_and_export_file_id", unique: true
 
   create_table "export_files", force: true do |t|
     t.string   "export_file_name"

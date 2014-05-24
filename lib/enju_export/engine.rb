@@ -1,4 +1,4 @@
-require 'state_machine'
+require 'statesman'
 require 'paperclip'
 require 'simple_form'
 
